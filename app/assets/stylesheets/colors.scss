@@ -1,0 +1,19 @@
+$color-palette: (
+  white: #FFFFFF,
+  pale-yellow: #FBF5E7,
+  rose-pink: #F3CED5,
+  aegean: #35536B,
+  true-teal: #63A8C6,
+  faded-teal: #AAD1E2,
+  pastel-purple: #E5E5F1
+);
+
+@each $color-name, $color-value in $color-palette {
+  .#{$color-name}-text {
+    color: #{$color-value};
+  }
+
+  .#{$color-name}-bg {
+  	background-color: #{$color-value};
+  }
+}
