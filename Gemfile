@@ -45,6 +45,10 @@ gem 'pry-byebug'
 
 gem 'httparty'
 
+gem "bootstrap_form", ">= 4.0.0"
+
+gem "jquery-rails"
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
