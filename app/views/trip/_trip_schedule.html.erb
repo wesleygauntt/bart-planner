@@ -1,5 +1,51 @@
 <div class="white-bg rounded aegean-text p-5">
 	<div class="pre-scrollable">
-		<%= schedule %>
+		<% @trips.each_with_index do |trip, index| %>
+			<div>
+				<h6>Trip <%= index + 1 %></h5>
+				<ul>
+					<li>
+						origin: <span class="text-muted"><%= trip["@origin"] %></span>
+					</li>
+
+					<li>
+						destination: <span class="text-muted"><%= trip["@destination"] %></span>
+					</li>
+
+					<li>
+						fare: <span class="text-muted"><%= trip["@fare"] %></span>
+					</li>
+
+					<li>
+						origTimeMin: <span class="text-muted"><%= trip["@origTimeMin"] %></span>
+					</li>
+
+					<li>
+						origTimeDate: <span class="text-muted"><%= trip["@origTimeDate"] %></span>
+					</li>
+
+					<li>
+						destTimeMin: <span class="text-muted"><%= trip["@destTimeMin"] %></span>
+					</li>
+
+					<li>
+						destTimeDate: <span class="text-muted"><%= trip["@destTimeDate"] %></span>
+					</li>
+
+					<li>
+						clipper: <span class="text-muted"><%= trip["@clipper"] %></span>
+					</li>
+
+					<li>
+						tripTime: <span class="text-muted"><%= trip["@tripTime"] %></span>
+					</li>
+
+					<li>
+						co2: <span class="text-muted"><%= trip["@co2"] %></span>
+					</li>
+				</ul>
+			</div>
+			<hr>
+		<% end %>
 	</div>
 </div>

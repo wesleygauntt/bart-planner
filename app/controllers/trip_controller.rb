@@ -9,6 +9,8 @@ class TripController < ApplicationController
 	def create
 		key = Rails.application.config.bart_api_key
 		response = HTTParty.get("http://api.bart.gov/api/sched.aspx?cmd=depart&orig="+params[:starting_station]+"&dest="+params[:ending_station]+"&date=now&key=" + key + "&b=2&a=2&l=1&json=y")
-		@schedule = JSON.parse(response.body)["root"]["schedule"]
+		@trips = JSON.parse(response.body)["root"]["schedule"]["request"]["trip"]
+
+		pp @trips
 	end
 end
