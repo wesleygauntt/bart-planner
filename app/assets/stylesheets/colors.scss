@@ -5,7 +5,10 @@ $color-palette: (
   aegean: #35536B,
   true-teal: #63A8C6,
   faded-teal: #AAD1E2,
-  pastel-purple: #E5E5F1
+  pastel-purple: #E5E5F1,
+  cool-gray: #EDF4F5,
+  sky-blue: #3397d5,
+  deep-sky: #2e88c0
 );
 
 @each $color-name, $color-value in $color-palette {
@@ -16,4 +19,14 @@ $color-palette: (
   .#{$color-name}-bg {
   	background-color: #{$color-value};
   }
+}
+
+.split-sky-bg {
+  background-color: #3397d5;
+  background: linear-gradient(45deg, #3397d5 0%,#3397d5 83%,#2e88c0 83%,#2e88c0 100%);
+}
+
+input {
+  font-size: 0.75rem;
+  font-weight: 600;  
 }
