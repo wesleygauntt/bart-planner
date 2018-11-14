@@ -1,5 +1,5 @@
 <div class="section cool-gray-bg">
-	<div class="container">
+	<div class="container-fluid">
 
 		<div class="row">
 			<div class="col-4">
@@ -13,6 +13,19 @@
 								<% options_for_select = @stations.each_with_object([]) {|s, o| o.push([s["name"], s["abbr"]]) } %>
 							  <%= f.select :starting_station, options_for_select, { label: "Starting Station:" }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
 								<%= f.select :ending_station, options_for_select, { label: "Ending Station:" }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
+
+
+
+							  <%= f.radio_button :schedule_type, "departing", label: "Departing", checked: true, inline: true %>
+  							<%= f.radio_button :schedule_type, "arriving", label: "Arriving", inline: true %>
+								<div class="border rounded pt-2 px-2 mb-2 mt-1">
+									<input name="selected-date-time" class="dtp-input border-0" />
+								</div>
+
+								
+
+
+
 							  <%= f.submit "Get Schedule", class: 'btn-block sky-blue-bg white-text p-2 rounded border-0' %>
 							<% end %>
 						</div>
@@ -20,24 +33,27 @@
 				</div>
 			</div>
 
-			<div class="col-4 full-height pale-yellow-bg">
-				<div class="container">
-					<div class="d-flex align-items-center justify-content-center full-height white-text">
-						<div id="response"></div>
-					</div>
-				</div>	
-			</div>
+			<div class="col-8">
+				<div class="d-flex align-items-center justify-content-center full-height">
 
-			<div class="col-4 full-height faded-teal-bg">
-				<div class="container">
-					<div class="d-flex align-items-center justify-content-center full-height white-text">
-						<div id="response2"></div>
-					</div>
-				</div>	
+				<div class="w-100 pale-yellow-bg height-303">
+					<div class="width-250">
+						<div class="white-bg pre-scrollable">
+							<div id="response"></div>
+						</div>
+					</div>	
+				</div>
+
+				
+
+
 			</div>
 		</div>
 
 	</div>
 </div>
 
+<script>
+	$('.dtp-input').datetimepicker({ footer: true, modal: true });
+</script>
 
