@@ -1,0 +1,19 @@
+<div class="rounded white-bg p-3 width-260">
+	<h6 class="text-muted">
+		<small>
+			<strong>SCHEDULE</strong>
+		</small>
+	</h6>
+
+	<% trips.each do |trip| %>
+		<div class="row">
+			<div class="col-6">
+				<small><%= trip["@origTimeMin"] %></small>
+			</div>
+			<div class="col-6 text-right">
+				<small><%= trip["@destTimeMin"] %></small>
+			</div>
+		</div>
+	<% end %>
+
+</div>

@@ -1,1 +1,5 @@
-$("#response").html("<%= escape_javascript(render partial: 'trip/trip_schedule', locals: { schedule: @schedule } ) %>");
+// $("#response").html("<%= escape_javascript(render partial: 'trip/trip_schedule', locals: { schedule: @schedule } ) %>");
+
+$("#price-widget-wrapper").html("<%= escape_javascript(render partial: 'trip/price_widget', locals: { fares: @fares, origin: @origin, destination: @destination } ) %>");
+
+$("#time-widget-wrapper").html("<%= escape_javascript(render partial: 'trip/time_widget', locals: { trips: @trips } ) %>");

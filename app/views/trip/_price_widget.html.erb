@@ -1,0 +1,42 @@
+<div class="rounded white-bg p-3 width-260">
+	<div class="d-flex align-items-center justify-content-space-between ">
+		<div>
+			<h4><%= origin %></h4>
+			<h6>xxx xxxxx</h6>
+		</div>
+
+		<div class="mx-3">
+			<h4>XX</h4>
+		</div>
+
+		<div class="text-right">
+			<h4><%= destination %></h4>
+			<h6>xxx xxxxx</h6>
+		</div>
+	</div>
+
+	<hr>
+
+	<div>
+		<h6 class="text-muted">
+			<small>
+				<strong>PRICE LIST</strong>
+			</small>
+		</h6>
+
+		<% fares.each do |fare| %>
+			<div class="row">
+				<div class="col-8">
+					<small>
+						<%= fare["@name"] %>
+					</small>
+				</div>
+				<div class="col-4 text-right">
+					<span class="badge badge-primary">
+						$<%= fare["@amount"] %>
+					</span>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>
