@@ -2,7 +2,45 @@
 	<div class="container-fluid">
 
 		<div class="row">
-			<div class="col-4">
+
+			<div class="col-12 d-inline-block d-md-none d-lg-none d-xl-none">
+				<div class="d-flex align-items-center justify-content-center">
+					<div class="split-sky-bg p-3 rounded w-100">
+						<h6 class="white-text">Plan your schedule BRO</h5>
+
+						<div class="white-bg p-3 rounded">
+							<%= bootstrap_form_tag url: '/trip', remote: true do |f| %>
+								<% options_for_select = @stations.each_with_object([]) {|s, o| o.push([s["name"], s["abbr"]]) } %>
+
+							<div class="row">
+								<div class="col-12 col-sm-6">
+									<%= f.select :starting_station, options_for_select, { label: "Starting Station:" }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
+								</div>
+
+								<div class="col-12 col-sm-6">
+									<%= f.select :ending_station, options_for_select, { label: "Ending Station:" }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
+								</div>
+							</div>
+								
+								<div class="d-flex">
+									<%= f.radio_button :schedule_type, "departing", label: "Departing", checked: true %>
+									<div class="width-10"></div>
+									<%= f.radio_button :schedule_type, "arriving", label: "Arriving" %>
+								</div>
+
+				  			
+								<div class="border rounded pt-2 px-2 mb-2 mt-1">
+									<input name="selected-date-time" class="dtp-input border-0" />
+								</div>
+
+							  <%= f.submit "Get Schedule", class: 'btn-block sky-blue-bg white-text p-2 rounded border-0' %>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-4 d-xs-none d-sm-none d-md-inline-block d-lg-inline-block d-xl-inline-block">
 				<div class="d-flex align-items-center justify-content-center full-height">
 					<div class="split-sky-bg p-3 rounded">
 						<h6 class="white-text">Plan your schedule</h5>
@@ -26,7 +64,7 @@
 				</div>
 			</div>
 
-			<div class="col-8">
+			<div class="col-12 col-md-8">
 				<div class="d-flex align-items-center justify-content-center full-height">
 					<div class="w-100 pale-yellow-bg p-2">
 

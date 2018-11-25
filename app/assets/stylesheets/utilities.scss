@@ -9,3 +9,21 @@
 .width-260 {
 	width: 260px;
 }
+
+
+.width-10 {
+	width: 10px;
+}
+
+
+.d-xs-none {
+  @media (max-width: 576px) {
+    display: none;
+  }
+}
+
+.d-sm-none {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
