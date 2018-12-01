@@ -33,3 +33,4 @@
 .DS_Store
 
 config/initializers/bart_api.rb
+config/initializers/google_maps.rb

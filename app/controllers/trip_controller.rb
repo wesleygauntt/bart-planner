@@ -1,5 +1,7 @@
 class TripController < ApplicationController
 
+	before_action :set_google_maps_key
+
 	def index
 		key = Rails.application.config.bart_api_key
 		response = HTTParty.get("http://api.bart.gov/api/stn.aspx?cmd=stns&key=" + key + "&json=y")
@@ -16,5 +18,11 @@ class TripController < ApplicationController
 		@destination = @trips.first["@destination"]
 
 		pp @trips
+	end
+
+	private
+
+	def set_google_maps_key
+		@gmap_key = Rails.application.config.google_maps_api_key
 	end
 end

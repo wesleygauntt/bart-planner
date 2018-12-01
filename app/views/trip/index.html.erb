@@ -1,84 +1,35 @@
 <div class="section cool-gray-bg">
-	<div class="container-fluid">
+	<div class="container-fluid px-0">
+		<div class="full-height rounded white-bg width-350 position-absolute z-index-1 split-sky-bg p-3 overflow-scroll">
+			<div class="w-100">
+				<h6 class="white-text">Plan your schedule</h5>
+				<div class="white-bg p-3 rounded">
+					<%= bootstrap_form_tag url: '/trip', remote: true do |f| %>
+						<% options_for_select = @stations.each_with_object([]) {|s, o| o.push([s["name"], s["abbr"]]) } %>
+					  <%= f.select :starting_station, options_for_select, { label: "Starting Station:" }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
+						<%= f.select :ending_station, options_for_select, { label: "Ending Station:" }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
 
-		<div class="row">
-
-			<div class="col-12 d-inline-block d-md-none d-lg-none d-xl-none">
-				<div class="d-flex align-items-center justify-content-center">
-					<div class="split-sky-bg p-3 rounded w-100">
-						<h6 class="white-text">Plan your schedule BRO</h5>
-
-						<div class="white-bg p-3 rounded">
-							<%= bootstrap_form_tag url: '/trip', remote: true do |f| %>
-								<% options_for_select = @stations.each_with_object([]) {|s, o| o.push([s["name"], s["abbr"]]) } %>
-
-							<div class="row">
-								<div class="col-12 col-sm-6">
-									<%= f.select :starting_station, options_for_select, { label: "Starting Station:" }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
-								</div>
-
-								<div class="col-12 col-sm-6">
-									<%= f.select :ending_station, options_for_select, { label: "Ending Station:" }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
-								</div>
-							</div>
-								
-								<div class="d-flex">
-									<%= f.radio_button :schedule_type, "departing", label: "Departing", checked: true %>
-									<div class="width-10"></div>
-									<%= f.radio_button :schedule_type, "arriving", label: "Arriving" %>
-								</div>
-
-				  			
-								<div class="border rounded pt-2 px-2 mb-2 mt-1">
-									<input name="selected-date-time" class="dtp-input border-0" />
-								</div>
-
-							  <%= f.submit "Get Schedule", class: 'btn-block sky-blue-bg white-text p-2 rounded border-0' %>
-							<% end %>
+					  <%= f.radio_button :schedule_type, "departing", label: "Departing", checked: true, inline: true %>
+						<%= f.radio_button :schedule_type, "arriving", label: "Arriving", inline: true %>
+						<div class="border rounded pt-2 px-2 mb-2 mt-1">
+							<input name="selected-date-time" class="dtp-input border-0" />
 						</div>
-					</div>
+					  <%= f.submit "Get Schedule", class: 'btn-block sky-blue-bg white-text p-2 rounded border-0' %>
+					<% end %>
 				</div>
 			</div>
 
-			<div class="col-4 d-xs-none d-sm-none d-md-inline-block d-lg-inline-block d-xl-inline-block">
-				<div class="d-flex align-items-center justify-content-center full-height">
-					<div class="split-sky-bg p-3 rounded">
-						<h6 class="white-text">Plan your schedule</h5>
-
-						<div class="white-bg p-3 rounded">
-							<%= bootstrap_form_tag url: '/trip', remote: true do |f| %>
-								<% options_for_select = @stations.each_with_object([]) {|s, o| o.push([s["name"], s["abbr"]]) } %>
-							  <%= f.select :starting_station, options_for_select, { label: "Starting Station:" }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
-								<%= f.select :ending_station, options_for_select, { label: "Ending Station:" }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
-
-							  <%= f.radio_button :schedule_type, "departing", label: "Departing", checked: true, inline: true %>
-  							<%= f.radio_button :schedule_type, "arriving", label: "Arriving", inline: true %>
-								<div class="border rounded pt-2 px-2 mb-2 mt-1">
-									<input name="selected-date-time" class="dtp-input border-0" />
-								</div>
-
-							  <%= f.submit "Get Schedule", class: 'btn-block sky-blue-bg white-text p-2 rounded border-0' %>
-							<% end %>
-						</div>
-					</div>
-				</div>
+			<div class="w-100">
+				<div class="mt-2"></div>
+				<div id="price-widget-wrapper"></div>
+				<div class="my-2"></div>
+				<div id="time-widget-wrapper"></div>
 			</div>
+		</div>
 
-			<div class="col-12 col-md-8">
-				<div class="d-flex align-items-center justify-content-center full-height">
-					<div class="w-100 pale-yellow-bg p-2">
-
-						<div id="price-widget-wrapper"></div>
-						<div class="my-2"></div>
-						<div id="time-widget-wrapper"></div>
-
-						<!-- <div class="width-250"> -->
-							<!-- <div class="white-bg pre-scrollable"> -->
-								<!-- <div id="response"></div> -->
-							<!-- </div> -->
-						<!-- </div>	 -->
-					</div>
-				</div>
+		<div class="d-flex align-items-center justify-content-center full-height m-l-350 width-fill">
+			<div class="w-100 full-height">
+		    <div id="map" class="h-100"></div>
 			</div>
 		</div>
 	</div>
@@ -87,4 +38,17 @@
 <script>
 	$('.dtp-input').datetimepicker({ footer: true, modal: true });
 </script>
+
+<script>
+  var map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 37.7868953, lng: -122.4134453},
+      zoom: 14,
+      mapTypeControl: false
+    });
+  }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= @gmap_key %>&callback=initMap" async defer></script>
 
