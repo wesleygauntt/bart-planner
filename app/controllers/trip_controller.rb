@@ -1,11 +1,12 @@
 class TripController < ApplicationController
 
 	before_action :set_google_maps_key
+	before_action :set_stations, only: :index
 
 	def index
-		key = Rails.application.config.bart_api_key
-		response = HTTParty.get("http://api.bart.gov/api/stn.aspx?cmd=stns&key=" + key + "&json=y")
-		@stations = JSON.parse(response.body)["root"]["stations"]["station"]
+		# puts @stations
+		# gtfs_latitude
+		# gtfs_longitude
 	end
 
 	def create
@@ -25,4 +26,16 @@ class TripController < ApplicationController
 	def set_google_maps_key
 		@gmap_key = Rails.application.config.google_maps_api_key
 	end
+
+	def set_stations
+		# consider storing/seeding/updating via dynamo
+
+
+		key = Rails.application.config.bart_api_key
+		response = HTTParty.get("http://api.bart.gov/api/stn.aspx?cmd=stns&key=" + key + "&json=y")
+		@stations = JSON.parse(response.body)["root"]["stations"]["station"]
+		@stations_as_json = @stations.to_json
+
+	end
+
 end
