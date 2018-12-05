@@ -3,40 +3,44 @@ let MapModule = (function() {
   let map;
   let stations = [];
   let stationMarkers = [];
-
-  const lines = {
-    dublin_pleasanton: [],
-    richmond: [],
-    antioch: [],
-    fremont: []
-  }
+  let stations_by_abbr = {};
 
   function setStations() {
     stations = $("#station-data").data().stations;
+
+    for(var station of stations){
+      stations_by_abbr[station.abbr] = station;
+    }
   }
 
   function initMap() {
-    
     setStations();
     setMap();
-    placeStationMarkers();
-
-  
+    // placeStationMarkers();
+    drawMapLines();
   }
 
   function placeStationMarkers(){
+    const circle = {
+      path: google.maps.SymbolPath.CIRCLE,
+      fillColor: '#00F',
+      fillOpacity: 0.6,
+      strokeColor: '#00A',
+      strokeOpacity: 0.9,
+      strokeWeight: 1,
+      scale: 7
+    };
 
-    for (var station of stations){
-
-      var marker = new google.maps.Marker({
+    for (let station of stations){
+      let marker = new google.maps.Marker({
         position: {lat: parseFloat(station.gtfs_latitude), lng: parseFloat(station.gtfs_longitude)},
         map: map,
-        title: station.name
+        title: station.name,
+        icon: circle
       });
         
       stationMarkers.push(marker);
     }
-
   }
 
   function setMap(){
@@ -47,25 +51,34 @@ let MapModule = (function() {
     });
   }
 
-  function drawPath(){
-     var flightPlanCoordinates = [
-      {lat: 37.772, lng: -122.214},
-      {lat: 21.291, lng: -157.821},
-      {lat: -18.142, lng: 178.431},
-      {lat: -27.467, lng: 153.027}
-    ];
+  function drawMapLines(){
+    let routes = $("#route-data").data().routes;
+    let stationMap = [];
 
-    var flightPath = new google.maps.Polyline({
-      path: flightPlanCoordinates,
-      geodesic: true,
-      strokeColor: '#FF0000',
-      strokeOpacity: 1.0,
-      strokeWeight: 2
-    });
+    for(let route of routes){
+      let routeCoordinates = [];
+      stations = route["config"]["station"]
+      for(let station of stations){
+        routeCoordinates.push({
+          lat: parseFloat(stations_by_abbr[station].gtfs_latitude),
+          lng: parseFloat(stations_by_abbr[station].gtfs_longitude),
+        });
+      }
+      stationMap.push(routeCoordinates);
+    }
 
-    flightPath.setMap(map);
+    for(let route of stationMap){
+      let routePath = new google.maps.Polyline({
+        path: route,
+        geodesic: true,
+        strokeColor: "#3397d5",
+        strokeOpacity: 1.0,
+        strokeWeight: 8
+      });
+
+      routePath.setMap(map);
+    }
   }
-
 
   return {
     initMap: initMap
