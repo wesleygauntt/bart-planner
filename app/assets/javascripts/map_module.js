@@ -16,7 +16,7 @@ let MapModule = (function() {
   function initMap() {
     setStations();
     setMap();
-    // placeStationMarkers();
+    placeStationMarkers();
     drawMapLines();
   }
 
@@ -24,11 +24,11 @@ let MapModule = (function() {
     const circle = {
       path: google.maps.SymbolPath.CIRCLE,
       fillColor: '#00F',
-      fillOpacity: 0.6,
+      // fillOpacity: 0.6,
       strokeColor: '#00A',
-      strokeOpacity: 0.9,
-      strokeWeight: 1,
-      scale: 7
+      // strokeOpacity: 0.9,
+      strokeWeight: 2,
+      scale: 4
     };
 
     for (let station of stations){

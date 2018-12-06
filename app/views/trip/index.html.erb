@@ -9,8 +9,8 @@
 					  <%= f.select :starting_station, options_for_select, { label: "Starting Station:" }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
 						<%= f.select :ending_station, options_for_select, { label: "Ending Station:" }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
 
-					  <%= f.radio_button :schedule_type, "departing", label: "Departing", checked: true, inline: true %>
-						<%= f.radio_button :schedule_type, "arriving", label: "Arriving", inline: true %>
+					  <%= f.radio_button :schedule_type, "depart", label: "Departing", checked: true, inline: true %>
+					  <%= f.radio_button :schedule_type, "arrive", label: "Arriving", inline: true %>
 						<div class="border rounded pt-2 px-2 mb-2 mt-1">
 							<input name="selected-date-time" class="dtp-input border-0" />
 						</div>
